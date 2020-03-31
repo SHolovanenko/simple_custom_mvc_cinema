@@ -1,12 +1,18 @@
 <?php
 
 class Router {
+    
+    static function start($linkDb, $adminPath) {
 
-    static function start($linkDb) {
-        
         $controllerName = '';
         $actionName = 'index';
-        $routes = explode('/', $_SERVER['REQUEST_URI']);
+        $uri = $_SERVER['REQUEST_URI'];
+
+        if (substr($_SERVER['REQUEST_URI'], 0, strlen($adminPath)) == $adminPath) {
+            $uri = substr_replace($_SERVER['REQUEST_URI'],'',0,strlen($adminPath));
+        }
+
+        $routes = explode('/', $uri);
 
         if (!empty($routes[1])) {	
             $controllerName = $routes[1];
@@ -16,12 +22,16 @@ class Router {
             $controllerName = 'Home';
         }
 
-        if (!empty($routes[2])) {
-            $actionName = $routes[2];
-        }
-
-        if (!empty($routes[3])) {
-            $arg = $routes[3];
+        if (!isset($_SESSION['isAuth'])) {
+            $controllerName = "Auth";
+        } else {
+            if (!empty($routes[2])) {
+                $actionName = $routes[2];
+            }
+    
+            if (!empty($routes[3])) {
+                $arg = $routes[3];
+            }
         }
 
         $modelName = $controllerName.'Model';
@@ -36,7 +46,7 @@ class Router {
 
         $controllerFile = ucfirst($controllerName).'.php';
         $controllerPath = "app/controllers/".$controllerFile;
-        
+
         if (file_exists($controllerPath)) {
             include "app/controllers/".$controllerFile;
         } else {
@@ -53,12 +63,5 @@ class Router {
 				$controller->$action();
 			}
         }
-    }
-    
-    private static function ErrorPage404() {
-        $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
-        header('HTTP/1.1 404 Not Found');
-        header("Status: 404 Not Found");
-        //header('Location:'.$host.'404');
     }
 }
