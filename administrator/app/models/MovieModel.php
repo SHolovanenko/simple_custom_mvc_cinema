@@ -1,4 +1,9 @@
 <?php
+
+namespace App\Administartor\Models;
+
+use App\Administartor\Core\Model;
+
 class MovieModel extends Model {
     const ITEMS_PER_PAGE = 10;
 

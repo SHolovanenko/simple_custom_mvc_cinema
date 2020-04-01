@@ -1,5 +1,12 @@
 <?php
 
+namespace App\Administartor\Controllers;
+
+use App\Administartor\Core\Controller;
+use App\Administartor\Core\View;
+use App\Administartor\Models\MovieModel;
+use Exception;
+
 class MovieController extends Controller {
     
     private $model;

@@ -1,5 +1,12 @@
 <?php
 
+namespace App\Administartor\Controllers;
+
+use App\Administartor\Core\Controller;
+use App\Administartor\Core\View;
+use App\Administartor\Models\AuthModel;
+use Exception;
+
 class AuthController extends Controller {
     
     private $model;

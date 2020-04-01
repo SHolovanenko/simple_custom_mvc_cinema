@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Administartor\Core;
+
 class Model {
 
     public function getData() {

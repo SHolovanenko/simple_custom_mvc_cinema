@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Administartor\Core;
+
 class Router {
     
     static function start($linkDb, $adminPath) {

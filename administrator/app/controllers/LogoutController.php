@@ -1,4 +1,11 @@
 <?php
+
+namespace App\Administartor\Controllers;
+
+use App\Administartor\Core\Controller;
+use App\Administartor\Models\LogoutModel;
+use App\Administartor\Core\View;
+
 class LogoutController extends Controller {
     
     private $model;

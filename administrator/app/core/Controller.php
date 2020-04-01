@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Administartor\Core;
+
+use Exception;
+
 class Controller {
 
     private $requestParams;

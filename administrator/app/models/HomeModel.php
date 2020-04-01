@@ -1,4 +1,9 @@
 <?php
+
+namespace App\Administartor\Models;
+
+use App\Administartor\Core\Model;
+
 class HomeModel extends Model{
     private $linkDb;
     

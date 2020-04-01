@@ -1,4 +1,11 @@
 <?php
+
+namespace App\Administartor\Controllers;
+
+use App\Administartor\Core\Controller;
+use App\Administartor\Models\HomeModel;
+use App\Administartor\Core\View;
+
 class HomeController extends Controller {
     
     private $model;
