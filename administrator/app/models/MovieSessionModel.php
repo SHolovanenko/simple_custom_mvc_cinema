@@ -21,9 +21,10 @@ class MovieSessionModel extends Model {
         $result = [];
 
         $id = htmlspecialchars($id);
-        $sql = "SELECT *".
+        $sql = "SELECT movie_sessions.*, count(session_registrations.id) AS 'total_visitors' ".
                 "FROM movie_sessions ".
-                "WHERE id = '". $this->linkDb->real_escape_string($id) ."' AND deleted_at IS NULL";
+                "JOIN session_registrations ON session_registrations.movie_session_id = movie_sessions.id ".
+                "WHERE movie_sessions.id = '". $this->linkDb->real_escape_string($id) ."' AND deleted_at IS NULL";
 
         $movie = $this->linkDb->query($sql);
 
