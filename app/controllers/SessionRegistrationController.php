@@ -39,19 +39,6 @@ class SessionRegistrationController extends Controller {
             $this->view->json(['exception' => $e->getMessage()]);
         }
     }
-
-    public function roomAction($movieSessionId) {
-        try {
-            $room = $this->model->getRoomPlaces($movieSessionId);
-
-            $result['success'] = $room ? true : false;
-            $result['room'] = $room;
-            $this->view->json($result);
-
-        } catch (Exception $e) {
-            $this->view->json(['exception' => $e->getMessage()]);
-        }
-    }
             
     public function indexAction() {
         $data = ['data' => 'This is Home'];
