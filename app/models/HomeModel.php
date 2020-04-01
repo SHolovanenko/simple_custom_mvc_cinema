@@ -3,7 +3,7 @@ namespace App\Models;
 
 use App\Core\Model;
 
-class MainModel extends Model {
+class HomeModel extends Model {
 
     private $linkDb;
     
