@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Administartor\Controllers;
+namespace Administrator\App\Controllers;
 
-use App\Administartor\Core\Controller;
-use App\Administartor\Models\HomeModel;
-use App\Administartor\Core\View;
+use Administrator\App\Core\Controller;
+use Administrator\App\Models\HomeModel;
+use Administrator\App\Core\View;
 
 class HomeController extends Controller {
     

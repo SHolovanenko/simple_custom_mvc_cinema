@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Administartor\Controllers;
+namespace Administrator\App\Controllers;
 
-use App\Administartor\Core\Controller;
-use App\Administartor\Models\LogoutModel;
-use App\Administartor\Core\View;
+use Administrator\App\Core\Controller;
+use Administrator\App\Models\LogoutModel;
+use Administrator\App\Core\View;
 
 class LogoutController extends Controller {
     

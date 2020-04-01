@@ -8,4 +8,4 @@ $linkDb = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
 mysqli_set_charset($linkDb,'utf8');
 
-Router::start($linkDb, ADMIN_PATH);
+Administrator\App\Core\Router::start($linkDb, ADMIN_PATH);

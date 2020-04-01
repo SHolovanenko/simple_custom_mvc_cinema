@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Administartor\Controllers;
+namespace Administrator\App\Controllers;
 
-use App\Administartor\Core\Controller;
-use App\Administartor\Core\View;
-use App\Administartor\Models\AuthModel;
+use Administrator\App\Core\Controller;
+use Administrator\App\Core\View;
+use Administrator\App\Models\AuthModel;
 use Exception;
 
 class AuthController extends Controller {

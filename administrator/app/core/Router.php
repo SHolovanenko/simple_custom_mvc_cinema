@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Administartor\Core;
+namespace Administrator\App\Core;
+
+use Administrator\App\Controllers;
+use Administrator\App\Models;
 
 class Router {
     
@@ -37,17 +40,19 @@ class Router {
         }
 
         $modelName = $controllerName.'Model';
-        $controllerName = $controllerName.'Controller';
+        $controllerName = ucfirst($controllerName).'Controller';
         $actionName = $actionName.'Action';
         $modelFile = $modelName.'.php';
         $modelPath = "app/models/".$modelFile;
+        $modelNamespace = 'Administrator\\App\\Models\\';
 
         if (file_exists($modelPath)) {
             include "app/models/".$modelFile;
         }
 
-        $controllerFile = ucfirst($controllerName).'.php';
+        $controllerFile = $controllerName.'.php';
         $controllerPath = "app/controllers/".$controllerFile;
+        $controllerNamespace = 'Administrator\\App\\Controllers\\';
 
         if (file_exists($controllerPath)) {
             include "app/controllers/".$controllerFile;
@@ -55,7 +60,8 @@ class Router {
             header("Location: /");
         }
 
-        $controller = new $controllerName($linkDb);
+        $controller = $controllerNamespace.$controllerName;
+        $controller = new $controller($linkDb);
         $action = $actionName;
 
         if (method_exists($controller, $action)) {

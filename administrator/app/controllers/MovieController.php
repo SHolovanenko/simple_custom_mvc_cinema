@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Administartor\Controllers;
+namespace Administrator\App\Controllers;
 
-use App\Administartor\Core\Controller;
-use App\Administartor\Core\View;
-use App\Administartor\Models\MovieModel;
+use Administrator\App\Core\Controller;
+use Administrator\App\Core\View;
+use Administrator\App\Models\MovieModel;
 use Exception;
 
 class MovieController extends Controller {

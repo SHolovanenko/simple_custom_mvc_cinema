@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Administartor\Models;
+namespace Administrator\App\Models;
 
-use App\Administartor\Core\Model;
+use Administrator\App\Core\Model;
 
 class HomeModel extends Model{
     private $linkDb;
