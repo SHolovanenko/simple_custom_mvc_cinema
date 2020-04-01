@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Core;
+
 class Router {
 
     static function start($linkDb) {
@@ -36,6 +38,7 @@ class Router {
 
         $controllerFile = ucfirst($controllerName).'.php';
         $controllerPath = "app/controllers/".$controllerFile;
+        $controllerNamespace = 'App\\Controllers\\';
         
         if (file_exists($controllerPath)) {
             include "app/controllers/".$controllerFile;
@@ -43,7 +46,8 @@ class Router {
             header("Location: /");
         }
 
-        $controller = new $controllerName($linkDb);
+        $controller = $controllerNamespace.$controllerName;
+        $controller = new $controller($linkDb);
         $action = $actionName;
 
         if (method_exists($controller, $action)) {

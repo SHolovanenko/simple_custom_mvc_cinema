@@ -2,9 +2,6 @@
 
 namespace Administrator\App\Core;
 
-use Administrator\App\Controllers;
-use Administrator\App\Models;
-
 class Router {
     
     static function start($linkDb, $adminPath) {

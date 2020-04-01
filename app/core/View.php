@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Core;
+
 class View {
 
     public function genView($contentView, $templateView, $title, $keywords, $description, $data = null)
