@@ -10,3 +10,5 @@ define('DB_NAME','cinema_develop');
 
 define('ADMINISTRATOR_ID', 1);
 define('ADMINISTRATOR_NAME','Admin');
+
+define('DB_USE_SOFTDELETE', true);

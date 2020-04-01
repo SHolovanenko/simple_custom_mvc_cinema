@@ -12,8 +12,6 @@ class AuthModel extends Model {
     public function login($email, $password) {
         $result['isAuth'] = 0;
 
-        $email = htmlspecialchars($email);
-        $password = htmlspecialchars($password);
         $sql = "SELECT users.name, users.email, users.phone, users.role AS 'roleId', roles.name as 'roleName'".
                 "FROM users ".
                 "JOIN roles ON roles.id = users.role ".

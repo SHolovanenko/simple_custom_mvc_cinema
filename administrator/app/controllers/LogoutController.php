@@ -9,10 +9,10 @@ class LogoutController extends Controller {
         $this->model = new LogoutModel();
         $this->view = new View();
 
-        $this->request();
+        $this->logout();
     }
     
-    function request() {
+    function logout() {
         $this->model->logout();
         header("location: ".ADMIN_PATH."/auth");
     }

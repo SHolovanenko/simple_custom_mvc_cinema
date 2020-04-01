@@ -6,23 +6,33 @@ class AuthController extends Controller {
     private $view;
     private $userData;
             
-    function __construct($linkDb) {
+    public function __construct($linkDb) {
         $this->model = new AuthModel($linkDb);
         $this->view = new View();
-        $this->request();
     }
 
-    function request() {
-        if (isset($_POST['email']) && isset($_POST['password'])) {
-            $email = trim($_POST['email']);
-            $password = md5(trim($_POST['password']));
-            $this->userData = $this->model->login($email, $password);
-        }
+    private function auth() {
+        $fields = [
+            'email' => ['defaultValue' => null, 'required' => true],
+            'password' => ['defaultValue' => null, 'required' => true],
+        ];
+        
+        $this->parseRequest($fields);
+        $email = trim($this->request('email'));
+        $password = md5(trim($this->request('password')));
+        $this->userData = $this->model->login($email, $password);
     }        
 
-    function indexAction() {
-        $data = $this->model->getData();
-        $data['userData'] = $this->userData;
-        $this->view->json($data);
+    public function indexAction() {
+        try {
+            $this->auth();
+            if ($this->userData['isAuth']) {
+                $this->view->json($this->userData);
+            } else {
+                throw new Exception('Please login to continue.'); 
+            }
+        } catch (Exception $e) {
+            $this->view->json(['exception' => $e->getMessage()]);
+        }
     }
 }
