@@ -18,7 +18,7 @@ class MovieSessionModel extends Model {
     }
 
     public function getById($id) {
-        $result = [];
+        $result = null;
 
         $id = htmlspecialchars($id);
         $sql = "SELECT movie_sessions.*, count(session_registrations.id) AS 'total_visitors' ".
@@ -26,12 +26,10 @@ class MovieSessionModel extends Model {
                 "JOIN session_registrations ON session_registrations.movie_session_id = movie_sessions.id ".
                 "WHERE movie_sessions.id = '". $this->linkDb->real_escape_string($id) ."' AND deleted_at IS NULL";
 
-        $movie = $this->linkDb->query($sql);
+        $movieSessions = $this->linkDb->query($sql);
 
-        if ($movie->num_rows == 1) {
-            $row = $movie->fetch_assoc();
-            $result = $row;
-        }
+        if ($movieSessions->num_rows == 1)
+            $result = $movieSessions->fetch_assoc();
 
         return $result;
     }
@@ -41,10 +39,10 @@ class MovieSessionModel extends Model {
 
         $offset = intval($page) * self::ITEMS_PER_PAGE - self::ITEMS_PER_PAGE;
         $sql = "SELECT * FROM movie_sessions WHERE deleted_at IS NULL LIMIT ". self::ITEMS_PER_PAGE ." OFFSET ". $offset;
-        $movies = $this->linkDb->query($sql);
+        $movieSessions = $this->linkDb->query($sql);
 
-        if ($movies->num_rows > 0) {
-            $rows = $this->resultToArray($movies);
+        if ($movieSessions->num_rows > 0) {
+            $rows = $this->resultToArray($movieSessions);
             $result['movieSessions'] = $rows;
             $result['totalMovieSessions'] = $this->getTotalMovieSessions();
             $result['totalPages'] = $this->getTotalPages();
@@ -57,12 +55,10 @@ class MovieSessionModel extends Model {
         $result = 0;
 
         $sql = "SELECT count(*) as 'totalMovieSessions' FROM movie_sessions WHERE deleted_at IS NULL";
-        $totalMovies = $this->linkDb->query($sql);
+        $totalMovieSessions = $this->linkDb->query($sql);
 
-        if ($totalMovies->num_rows == 1) {
-            $row = $totalMovies->fetch_assoc(); 
-            $result = $row['totalMovieSessions'];
-        }
+        if ($totalMovieSessions->num_rows == 1)
+            $result = $totalMovieSessions->fetch_assoc(); 
 
         return $result;
     } 
@@ -76,10 +72,8 @@ class MovieSessionModel extends Model {
         $sql = 'SELECT duration_mins FROM movies WHERE id = '. $this->linkDb->real_escape_string($movieId) .' AND deleted_at IS NULL';
         $movie = $this->linkDb->query($sql);
 
-        if ($movie->num_rows == 1) {
-            $row = $movie->fetch_assoc();
-            $movie = $row;
-        }
+        if ($movie->num_rows == 1) 
+            $movie = $movie->fetch_assoc();
 
         $movieDuration = $movie['duration_mins'] ?? 0;
         
@@ -136,10 +130,8 @@ class MovieSessionModel extends Model {
         $sql = 'SELECT duration_mins FROM movies WHERE id = '. $this->linkDb->real_escape_string($movieId) .' AND deleted_at IS NULL';
         $movie = $this->linkDb->query($sql);
 
-        if ($movie->num_rows == 1) {
-            $row = $movie->fetch_assoc();
-            $movie = $row;
-        }
+        if ($movie->num_rows == 1)
+            $movie = $movie->fetch_assoc();
 
         $movieDuration = $movie['duration_mins'] ?? 0;
         

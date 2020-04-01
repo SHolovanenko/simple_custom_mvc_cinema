@@ -22,8 +22,8 @@ class MovieSessionController extends Controller {
             if (!$this->isAdmin()) 
                 throw new Exception('Action restricted');
 
-            $movie = $this->model->getById($id);
-            $this->view->json($movie);
+            $movieSession = $this->model->getById($id);
+            $this->view->json($movieSession);
         } catch (Exception $e) {
             $this->view->json(['exception' => $e->getMessage()]);
         }

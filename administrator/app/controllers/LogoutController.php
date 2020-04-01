@@ -9,12 +9,9 @@ use Administrator\App\Core\View;
 class LogoutController extends Controller {
     
     private $model;
-    private $view;
-    private $is_auth;
             
     function __construct() {
         $this->model = new LogoutModel();
-        $this->view = new View();
 
         $this->logout();
     }
