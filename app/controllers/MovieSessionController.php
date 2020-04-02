@@ -19,17 +19,23 @@ class MovieSessionController extends Controller {
 
     public function getAction($id) {
         try {
+            $keywords = 'cinema, movie';
+            $description = 'Cinema registration page';
+
             $movieSession = $this->model->getById($id);
             $roomPlaces = $this->model->getRoomPlaces($id);
             
-            $result = [
+            $data = [
                 'movieSession' => $movieSession,
                 'room' => $roomPlaces
             ];
 
-            $this->view->json($result);
+            $this->view->genView('movieSessionView.php', 'templateView.php', 'Registration', $keywords, $description, $data);
         } catch (Exception $e) {
-            $this->view->json(['exception' => $e->getMessage()]);
+            $data = [
+                'exception' => $e->getMessage()
+            ];
+            $this->view->genView('movieSessionView.php', 'templateView.php', 'Registration', $keywords, $description, $data);
         }
     }
 

@@ -14,6 +14,7 @@ class Controller {
 
     public function parseRequest($fields) {
         $method = $_SERVER['REQUEST_METHOD'];
+        $exceptions = [];
 
         foreach ($fields as $name => $options) {
             $this->requestParams[$name] = $options['defaultValue'];
@@ -37,8 +38,11 @@ class Controller {
 
             if ($options['required'])
                 if (empty($this->requestParams[$name]))
-                    throw new Exception($name ." is required");
+                    $exceptions[] = $name ." is required";
         }
+
+        if (!empty($exceptions)) 
+            throw new Exception(implode(";<br>", $exceptions));
     }
 
     public function request($name, $defaultValue = null) {

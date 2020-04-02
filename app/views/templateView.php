@@ -19,7 +19,7 @@
             <?php 
                 if (isset($data['exception'])) {
                     ?>
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger m-5" role="alert">
                         <?php echo $data['exception']; ?>
                     </div>
                     <?php

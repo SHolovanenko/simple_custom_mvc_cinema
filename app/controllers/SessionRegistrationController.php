@@ -19,26 +19,39 @@ class SessionRegistrationController extends Controller {
 
     public function addAction() {
         try {
+            $keywords = 'cinema, movie';
+            $description = 'Cinema registration page';
+
             $fields = [
                 'email' => ['defaultValue' => null, 'required' => true],
                 'phone' => ['defaultValue' => null, 'required' => true],
                 'movieSessionId' => ['defaultValue' => null, 'required' => true],
-                'placeRow' => ['defaultValue' => null, 'required' => true],
-                'placeColumn' => ['defaultValue' => null, 'required' => true],
+                'place' => ['defaultValue' => null, 'required' => true],
             ];
             
             $this->parseRequest($fields);
             $params = $this->getAllRequestParams();
+            $data['movieSessionId'] = $params['movieSessionId'];
+            $place = explode('_', $params['place']);
+            $params['placeRow'] = $place[0];
+            $params['placeColumn'] = $place[1];
             $resultId = $this->model->add($params);
 
-            $result['success'] = $resultId ? true : false;
-            $result['resultId'] = $resultId;
-            $this->view->json($result);
+            $data['success'] = $resultId ? true : false;
+            $data['resultId'] = $resultId;
 
+            $this->view->genView('movieSessionRegistrationView.php', 'templateView.php', 'Registration', $keywords, $description, $data);
+        
         } catch (Exception $e) {
-            $this->view->json(['exception' => $e->getMessage()]);
+            $data = [
+                'success' => false,
+                'exception' => $e->getMessage(),
+                'movieSessionId' => $this->request('movieSessionId')
+            ];
+
+            $this->view->genView('movieSessionRegistrationView.php', 'templateView.php', 'Registration', $keywords, $description, $data);
         }
-    }
+     }
             
     public function indexAction() {
         $data = ['data' => 'This is Home'];

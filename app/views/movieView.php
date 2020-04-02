@@ -26,20 +26,23 @@
     </div>
 </div>
 
-<?php foreach($data['movieSessions'] as $movieSession) 
-{
-?>
-<div class="row">
-    <div class="col">
-        <a class="text-body" href="/moviesession/get/<?php echo $movieSession['id']; ?>">
-            <div class="p-3">
-                <div>Cinema hall: <?php echo $movieSession['room']; ?></div>
-                <div>Start: <?php echo $movieSession['start']; ?></div>
-                <div>End: <?php echo $movieSession['end']; ?></div>
-            </div>
-        </a>
-    </div>
-</div>
 <?php 
+if (!empty($data['movieSessions'])) {
+    foreach($data['movieSessions'] as $movieSession) 
+    {
+?>
+        <div class="row">
+            <div class="col">
+                <a class="text-body" href="/moviesession/get/<?php echo $movieSession['id']; ?>">
+                    <div class="p-3">
+                        <div>Cinema hall: <?php echo $movieSession['room']; ?></div>
+                        <div>Start: <?php echo $movieSession['start']; ?></div>
+                        <div>End: <?php echo $movieSession['end']; ?></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+<?php 
+    }
 }
 ?>
