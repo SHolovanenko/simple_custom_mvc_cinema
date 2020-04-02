@@ -21,6 +21,9 @@ class MovieController extends Controller {
 
     public function getAction($idOrAlias, $useAlias = USE_ALIAS) {
         try {
+            $keywords = 'cinema, movie, top movies';
+            $description = 'Cinema home page';
+
             if ($useAlias) {
                 $movie = $this->model->getByAlias($idOrAlias);
             } else {
@@ -29,14 +32,17 @@ class MovieController extends Controller {
 
             $movieSessions = $this->model->getMovieSessionsById($movie['id']);
 
-            $result = [
+            $data = [
                 'movie' => $movie,
                 'movieSessions' => $movieSessions
             ];
 
-            $this->view->json($result);
+            $this->view->genView('movieView.php', 'templateView.php', $movie['title'], $keywords, $description, $data);
         } catch (Exception $e) {
-            $this->view->json(['exception' => $e->getMessage()]);
+            $data = [
+                'exception' => $e->getMessage()
+            ];
+            $this->view->genView('movieView.php', 'templateView.php', $movie['title'], $keywords, $description, $data);
         }
     }
 
@@ -60,14 +66,14 @@ class MovieController extends Controller {
 
     function indexAction($page = 1) {
         try {
+            $keywords = 'cinema, movie, top movies';
+            $description = 'Cinema home page';
+
             $data = [
                 'topPopular' => $this->model->getTopPopular(self::TOP_POPULAR),
                 'listMovies' => $this->model->getList($page),
                 'currentPage' => $page
             ];
-
-            $keywords = 'cinema, movie, top movies';
-            $description = 'Cinema home page';
 
             $this->view->genView('homeView.php', 'templateView.php', 'Cinema home', $keywords, $description, $data);
         } catch (Exception $e) {
