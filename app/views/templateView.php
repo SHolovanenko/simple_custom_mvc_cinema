@@ -15,6 +15,9 @@
          
     </head>
     <body>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="/">Cinema</a>
+        </nav>
         <div class="container">
             <?php 
                 if (isset($data['exception'])) {
