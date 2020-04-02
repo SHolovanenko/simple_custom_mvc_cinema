@@ -18,7 +18,7 @@ class AuthController extends Controller {
         $this->view = new View();
     }
 
-    private function auth() {
+    public function authAction() {
         $fields = [
             'email' => ['defaultValue' => null, 'required' => true],
             'password' => ['defaultValue' => null, 'required' => true],
@@ -28,18 +28,23 @@ class AuthController extends Controller {
         $email = trim($this->request('email'));
         $password = md5(trim($this->request('password')));
         $this->userData = $this->model->login($email, $password);
+        
+        header("Location: ".ADMIN_PATH);
     }        
 
     public function indexAction() {
         try {
-            $this->auth();
-            if ($this->userData['isAuth']) {
-                $this->view->json($this->userData);
+            if ($this->isAdmin()) {
+                header("Location: ".ADMIN_PATH.'/home');
             } else {
-                throw new Exception('Please login to continue.'); 
+                $this->authAction();
+                //$this->view->genView('authView.php', 'templateView.php', 'Admin Panel', '', '', []);
             }
         } catch (Exception $e) {
-            $this->view->json(['exception' => $e->getMessage()]);
+            $data = [
+                'exception' => $e->getMessage()
+            ];
+            $this->view->genView('authView.php', 'templateView.php', 'Admin Panel', '', '', $data);
         }
     }
 }

@@ -8,7 +8,7 @@
     <meta name="keywords" content="<?php echo $keywords; ?>" />
     <meta name="description" content="<?php echo $description; ?>" />
     <!-- Bootstrap -->
-    <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
 
     <style>
 
@@ -25,12 +25,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/administrator">Log in</a>
+                    <a class="nav-link" href="movie/all">Movies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="moviesession/all">Movie Sessions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout">Log Out</a>
                 </li>
             </ul>
         </div>
     </nav>
-
     <div class="container">
         <?php
         if (isset($data['exception'])) {
@@ -46,8 +51,8 @@
     </div>
 
     <!-- Bootstrap -->
-    <script src="/js/jquery-3.4.1.slim.min.js"></script>
-    <script src="/js/bootstrap/bootstrap.bundle.js"></script>
+    <script src="../js/jquery-3.4.1.slim.min.js"></script>
+    <script src="../js/bootstrap/bootstrap.bundle.js"></script>
 </body>
 
 </html>

@@ -18,6 +18,6 @@ class HomeController extends Controller {
             
     function indexAction() {
         $data = $this->model->getData();
-        $this->view->json($data);
+        $this->view->genView('homeView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', $data);
     }
 }
