@@ -15,7 +15,7 @@ class Router {
         }
 
         if ($controllerName == '' || $controllerName == 'index.php' || $controllerName == 'index.html') {
-            $controllerName = 'Home';
+            $controllerName = 'Movie';
         }
 
         if (!empty($routes[2])) {

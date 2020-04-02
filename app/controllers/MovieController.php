@@ -58,8 +58,24 @@ class MovieController extends Controller {
         }
     }
 
-    function indexAction() {
-        $data = [];
-        $this->view->json($data);
+    function indexAction($page = 1) {
+        try {
+            $data = [
+                'topPopular' => $this->model->getTopPopular(self::TOP_POPULAR),
+                'listMovies' => $this->model->getList($page),
+                'currentPage' => $page
+            ];
+
+            $keywords = 'cinema, movie, top movies';
+            $description = 'Cinema home page';
+
+            $this->view->genView('homeView.php', 'templateView.php', 'Cinema home', $keywords, $description, $data);
+        } catch (Exception $e) {
+            $data = [
+                'exception' => $e->getMessage()
+            ];
+            $this->view->genView('homeView.php', 'templateView.php', 'Cinema home', $keywords, $description, $data);
+        }
+        
     }
 }
