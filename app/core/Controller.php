@@ -38,11 +38,11 @@ class Controller {
 
             if ($options['required'])
                 if (empty($this->requestParams[$name]))
-                    $exceptions[] = $name ." is required";
+                    $exceptions[] = ucfirst($name ." is required");
         }
 
         if (!empty($exceptions)) 
-            throw new Exception(implode(";<br>", $exceptions));
+            throw new Exception(implode("<br>", $exceptions));
     }
 
     public function request($name, $defaultValue = null) {

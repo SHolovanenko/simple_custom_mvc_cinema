@@ -38,7 +38,6 @@ class AuthController extends Controller {
                 header("Location: ".ADMIN_PATH.'/home');
             } else {
                 $this->authAction();
-                //$this->view->genView('authView.php', 'templateView.php', 'Admin Panel', '', '', []);
             }
         } catch (Exception $e) {
             $data = [

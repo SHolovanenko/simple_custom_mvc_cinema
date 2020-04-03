@@ -8,7 +8,7 @@
     <meta name="keywords" content="<?php echo $keywords; ?>" />
     <meta name="description" content="<?php echo $description; ?>" />
     <!-- Bootstrap -->
-    <link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 
     <style>
 
@@ -18,20 +18,20 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Cinema</a>
+        <a class="navbar-brand" href="/administrator">Cinema</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="movie/all">Movies</a>
+                    <a class="nav-link" href="/administrator/movie/all">Movies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="moviesession/all">Movie Sessions</a>
+                    <a class="nav-link" href="/administrator/moviesession/all">Movie Sessions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="logout">Log Out</a>
+                    <a class="nav-link" href="/administrator/logout">Log Out</a>
                 </li>
             </ul>
         </div>
@@ -51,8 +51,8 @@
     </div>
 
     <!-- Bootstrap -->
-    <script src="../js/jquery-3.4.1.slim.min.js"></script>
-    <script src="../js/bootstrap/bootstrap.bundle.js"></script>
+    <script src="/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="/js/bootstrap/bootstrap.bundle.js"></script>
 </body>
 
 </html>

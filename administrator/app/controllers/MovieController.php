@@ -22,10 +22,13 @@ class MovieController extends Controller {
             if (!$this->isAdmin()) 
                 throw new Exception('Action restricted');
 
-            $movie = $this->model->getById($id);
-            $this->view->json($movie);
+            $data = $this->model->getById($id);
+            $this->view->genView('movieEditView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', $data);
         } catch (Exception $e) {
-            $this->view->json(['exception' => $e->getMessage()]);
+            $data = $this->getAllRequestParams();
+            $data['exception'] = $e->getMessage();
+            
+            $this->view->genView('movieEditView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', $data);
         }
     }
 
@@ -34,10 +37,15 @@ class MovieController extends Controller {
             if (!$this->isAdmin()) 
                 throw new Exception('Action restricted');
 
-            $listMovies = $this->model->getList($page);
-            $this->view->json($listMovies);
+            $data = $this->model->getList($page);
+            $data['currentPage'] = $page;
+            
+            $this->view->genView('movieAllView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', $data);
         } catch (Exception $e) {
-            $this->view->json(['exception' => $e->getMessage()]);
+            $data = [
+                'exception' => $e->getMessage()
+            ];
+            $this->view->genView('movieAllView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', $data);
         }
     }
 
@@ -51,7 +59,7 @@ class MovieController extends Controller {
                 'alias' => ['defaultValue' => null, 'required' => false],
                 'descriptionShort' => ['defaultValue' => null, 'required' => false],
                 'descriptionFull' => ['defaultValue' => null, 'required' => true],
-                'poster' => ['defaultValue' => null, 'required' => false],
+                'poster' => ['defaultValue' => null, 'required' => true],
             ];
             
             $this->parseRequest($fields);
@@ -60,11 +68,18 @@ class MovieController extends Controller {
 
             $result['success'] = $resultId ? true : false;
             $result['resultId'] = $resultId;
-            $this->view->json($result);
+            header("Location: /administrator/movie/get/".$resultId);
 
         } catch (Exception $e) {
-            $this->view->json(['exception' => $e->getMessage()]);
+            $data = $this->getAllRequestParams();
+            $data['exception'] = $e->getMessage();
+            
+            $this->view->genView('movieAddView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', $data);
         }
+    }
+
+    public function formAddAction() {
+        $this->view->genView('movieAddView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', []);
     }
 
     public function deleteAction($id, $softDelete = DB_USE_SOFTDELETE) {
@@ -100,10 +115,13 @@ class MovieController extends Controller {
 
             $result['success'] = $resultId ? true : false;
             $result['resultId'] = $resultId;
-            $this->view->json($result);
+            header("Location: /administrator/movie/get/".$resultId);
 
         } catch (Exception $e) {
-            $this->view->json(['exception' => $e->getMessage()]);
+            $data = $this->getAllRequestParams();
+            $data['exception'] = $e->getMessage();
+            
+            $this->view->genView('movieEditView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', $data);
         }
     }
 

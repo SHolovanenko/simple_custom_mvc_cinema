@@ -7,7 +7,7 @@
         <meta name="keywords" content="<?php echo $keywords; ?>" />
         <meta name="description" content="<?php echo $description; ?>" />
         <!-- Bootstrap -->
-        <link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 
         <style>
             
@@ -30,7 +30,7 @@
         </div>
         
         <!-- Bootstrap -->
-        <script src="../js/jquery-3.4.1.slim.min.js"></script>
-        <script src="../js/bootstrap/bootstrap.bundle.js"></script>
+        <script src="/js/jquery-3.4.1.slim.min.js"></script>
+        <script src="/js/bootstrap/bootstrap.bundle.js"></script>
     </body>
 </html>
