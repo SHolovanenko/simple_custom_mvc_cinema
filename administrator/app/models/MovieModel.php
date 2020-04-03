@@ -77,9 +77,9 @@ class MovieModel extends Model {
         if (empty($params['descriptionShort'])) 
             $params['descriptionShort'] = substr($params['descriptionFull'], 0, 97) . '...';
 
-        $sql = "INSERT INTO movies (title, alias, description_short, description_full, poster) VALUES ('".
+        $sql = "INSERT INTO movies (title, alias, description_short, description_full, poster, duration_mins) VALUES ('".
                 $params['title']."','".$params['alias']."','".$params['descriptionShort']."','".
-                $params['descriptionFull']."','".$params['poster']."')";
+                $params['descriptionFull']."','".$params['poster']."','".$params['durationMins']."')";
         
         $result = $this->linkDb->query($sql);
 
@@ -129,7 +129,8 @@ class MovieModel extends Model {
                 "alias = '".$this->linkDb->real_escape_string($params['alias'])."',".
                 "description_short = '".$this->linkDb->real_escape_string($params['descriptionShort'])."',".
                 "description_full = '".$this->linkDb->real_escape_string($params['descriptionFull'])."',".
-                "poster = '".$this->linkDb->real_escape_string($params['poster'])."' ".
+                "poster = '".$this->linkDb->real_escape_string($params['poster'])."',".
+                "duration_mins = '".$this->linkDb->real_escape_string($params['durationMins'])."' ".
                 "WHERE id = ". $this->linkDb->real_escape_string($id);
         
         $result = $this->linkDb->query($sql);

@@ -59,7 +59,8 @@ class MovieController extends Controller {
                 'alias' => ['defaultValue' => null, 'required' => false],
                 'descriptionShort' => ['defaultValue' => null, 'required' => false],
                 'descriptionFull' => ['defaultValue' => null, 'required' => true],
-                'poster' => ['defaultValue' => null, 'required' => true],
+                'poster' => ['defaultValue' => null, 'required' => false],
+                'durationMins' => ['defaultValue' => null, 'required' => true],
             ];
             
             $this->parseRequest($fields);
@@ -107,6 +108,7 @@ class MovieController extends Controller {
                 'descriptionShort' => ['defaultValue' => null, 'required' => false],
                 'descriptionFull' => ['defaultValue' => null, 'required' => false],
                 'poster' => ['defaultValue' => null, 'required' => false],
+                'durationMins' => ['defaultValue' => null, 'required' => false],
             ];
             
             $this->parseRequest($fields);
