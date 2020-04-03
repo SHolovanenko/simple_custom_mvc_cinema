@@ -90,10 +90,10 @@ class MovieController extends Controller {
                 
             $result = $this->model->delete($id, $softDelete);
 
-            $this->view->json(['success' => $result]);
+            header("Location: /administrator/movie/all");
 
         } catch (Exception $e) {
-            $this->view->json(['exception' => $e->getMessage()]);
+            header("Location: /administrator/movie/all");
         }
     }
 

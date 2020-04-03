@@ -31,7 +31,7 @@
                     <button type="submit" class="btn btn-primary">Edit</button>
                 </div>
                 <div class="col-1">
-                    <a class="btn btn-danger" href="/administrator/movie/edit/<?php echo $data['id']; ?>" role="button">Delete</a>
+                    <a class="btn btn-danger" href="/administrator/movie/delete/<?php echo $data['id']; ?>" role="button">Delete</a>
                 </div>
             </div>
         </form>

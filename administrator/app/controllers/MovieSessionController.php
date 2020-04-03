@@ -22,10 +22,29 @@ class MovieSessionController extends Controller {
             if (!$this->isAdmin()) 
                 throw new Exception('Action restricted');
 
-            $movieSession = $this->model->getById($id);
-            $this->view->json($movieSession);
+            $data = $this->model->getById($id);
+            $this->view->genView('movieSessionEditView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', $data);
         } catch (Exception $e) {
-            $this->view->json(['exception' => $e->getMessage()]);
+            $data = $this->getAllRequestParams();
+            $data['exception'] = $e->getMessage();
+            
+            $this->view->genView('movieSessionEditView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', $data);
+        }
+    }
+
+    public function showAction($id) {
+        try {
+            if (!$this->isAdmin()) 
+                throw new Exception('Action restricted');
+
+            $data['movieSession'] = $this->model->getById($id);
+            $data['registrations'] = $this->model->getRegistrations($id);
+            $this->view->genView('movieSessionShowView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', $data);
+        } catch (Exception $e) {
+            $data = $this->getAllRequestParams();
+            $data['exception'] = $e->getMessage();
+            
+            $this->view->genView('movieSessionShowView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', $data);
         }
     }
 
@@ -34,10 +53,15 @@ class MovieSessionController extends Controller {
             if (!$this->isAdmin()) 
                 throw new Exception('Action restricted');
 
-            $listMovies = $this->model->getList($page);
-            $this->view->json($listMovies);
+            $data = $this->model->getList($page);
+            $data['currentPage'] = $page;
+            
+            $this->view->genView('movieSessionAllView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', $data);
         } catch (Exception $e) {
-            $this->view->json(['exception' => $e->getMessage()]);
+            $data = [
+                'exception' => $e->getMessage()
+            ];
+            $this->view->genView('movieSessionAllView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', $data);
         }
     }
 
@@ -48,7 +72,7 @@ class MovieSessionController extends Controller {
 
             $fields = [
                 'movieId' => ['defaultValue' => null, 'required' => true],
-                'roomId' => ['defaultValue' => null, 'required' => true],
+                'roomId' => ['defaultValue' => 1, 'required' => true],
                 'start' => ['defaultValue' => null, 'required' => true]
             ];
             
@@ -58,11 +82,18 @@ class MovieSessionController extends Controller {
 
             $result['success'] = $resultId ? true : false;
             $result['resultId'] = $resultId;
-            $this->view->json($result);
+            header("Location: /administrator/moviesession/get/".$resultId);
 
         } catch (Exception $e) {
-            $this->view->json(['exception' => $e->getMessage()]);
+            $data = $this->getAllRequestParams();
+            $data['exception'] = $e->getMessage();
+            
+            $this->view->genView('movieSessionAddView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', $data);
         }
+    }
+
+    public function formAddAction() {
+        $this->view->genView('movieSessionAddView.php', 'templateAdministratorView.php', 'Admin Panel', '', '', []);
     }
 
     public function deleteAction($id, $softDelete = DB_USE_SOFTDELETE) {
@@ -86,7 +117,7 @@ class MovieSessionController extends Controller {
 
             $fields = [
                 'movieId' => ['defaultValue' => null, 'required' => true],
-                'roomId' => ['defaultValue' => null, 'required' => true],
+                'roomId' => ['defaultValue' => 1, 'required' => true],
                 'start' => ['defaultValue' => null, 'required' => true]
             ];
             

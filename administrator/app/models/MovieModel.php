@@ -39,7 +39,7 @@ class MovieModel extends Model {
         $result = [];
 
         $offset = intval($page) * self::ITEMS_PER_PAGE - self::ITEMS_PER_PAGE;
-        $sql = "SELECT * FROM movies WHERE deleted_at IS NULL LIMIT ". self::ITEMS_PER_PAGE ." OFFSET ". $offset;
+        $sql = "SELECT * FROM movies WHERE deleted_at IS NULL ORDER BY id DESC LIMIT ". self::ITEMS_PER_PAGE ." OFFSET ". $offset;
         $movies = $this->linkDb->query($sql);
 
         if ($movies->num_rows > 0) {

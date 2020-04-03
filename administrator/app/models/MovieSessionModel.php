@@ -3,6 +3,7 @@
 namespace Administrator\App\Models;
 
 use Administrator\App\Core\Model;
+use Exception;
 
 class MovieSessionModel extends Model {
     const ITEMS_PER_PAGE = 10;
@@ -38,7 +39,7 @@ class MovieSessionModel extends Model {
         $result = [];
 
         $offset = intval($page) * self::ITEMS_PER_PAGE - self::ITEMS_PER_PAGE;
-        $sql = "SELECT * FROM movie_sessions WHERE deleted_at IS NULL LIMIT ". self::ITEMS_PER_PAGE ." OFFSET ". $offset;
+        $sql = "SELECT * FROM movie_sessions WHERE deleted_at IS NULL AND start > NOW() LIMIT ". self::ITEMS_PER_PAGE ." OFFSET ". $offset;
         $movieSessions = $this->linkDb->query($sql);
 
         if ($movieSessions->num_rows > 0) {
@@ -88,8 +89,11 @@ class MovieSessionModel extends Model {
         
         $result = $this->linkDb->query($sql);
 
-        if ($result)
+        if ($result) {
             $result = $this->linkDb->insert_id;
+        } else {
+            throw new Exception('Can not add item');
+        }
 
         return $result;
     }
@@ -149,4 +153,16 @@ class MovieSessionModel extends Model {
 
         return $result;
     }
+
+    public function getRegistrations($id) {
+        $result = [];
+
+        $sql = "SELECT * FROM session_registrations WHERE movie_session_id = ".$this->linkDb->real_escape_string($id);
+        $registrations = $this->linkDb->query($sql);
+
+        if ($registrations->num_rows > 0)
+            $result = $this->resultToArray($registrations);
+
+        return $result;
+    } 
 }
