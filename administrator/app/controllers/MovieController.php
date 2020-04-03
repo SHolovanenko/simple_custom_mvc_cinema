@@ -59,7 +59,7 @@ class MovieController extends Controller {
                 'alias' => ['defaultValue' => null, 'required' => false],
                 'descriptionShort' => ['defaultValue' => null, 'required' => false],
                 'descriptionFull' => ['defaultValue' => null, 'required' => true],
-                'poster' => ['defaultValue' => null, 'required' => false],
+                'poster' => ['defaultValue' => null, 'required' => true],
                 'durationMins' => ['defaultValue' => null, 'required' => true],
             ];
             
@@ -116,8 +116,8 @@ class MovieController extends Controller {
             $resultId = $this->model->edit($id, $params);
 
             $result['success'] = $resultId ? true : false;
-            $result['resultId'] = $resultId;
-            header("Location: /administrator/movie/get/".$resultId);
+            $result['resultId'] = $id;
+            $this->view->json($result);
 
         } catch (Exception $e) {
             $data = $this->getAllRequestParams();

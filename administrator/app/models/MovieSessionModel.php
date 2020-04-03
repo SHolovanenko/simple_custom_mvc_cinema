@@ -142,12 +142,20 @@ class MovieSessionModel extends Model {
         $movieSessionStart = date('Y-m-d H:i:s', strtotime($params['start']));
         $movieSessionEnd = date('Y-m-d H:i:s', strtotime($movieSessionStart.' +'.$movieDuration.' minutes'));
 
-        $sql = "UPDATE movie_sessions SET ".
-                "movie_id = '".$this->linkDb->real_escape_string($movieId)."',".
-                "room_id = '".$this->linkDb->real_escape_string($params['roomId'])."',".
-                "start = '".$this->linkDb->real_escape_string($movieSessionStart)."',".
-                "end = '".$this->linkDb->real_escape_string($movieSessionEnd)."'".
-                "WHERE id = ". $this->linkDb->real_escape_string($id);
+        $paramsToUpdate = [];
+        if (!empty($movieId))
+            $paramsToUpdate[] = "movie_id = '".$this->linkDb->real_escape_string($movieId)."'";
+            
+        if (!empty($params['roomId']))
+            $paramsToUpdate[] = "room_id = '".$this->linkDb->real_escape_string($params['roomId'])."'";
+
+        if (!empty($movieSessionStart))
+            $paramsToUpdate[] = "start = '".$this->linkDb->real_escape_string($movieSessionStart)."'";
+            
+        if (!empty($movieSessionEnd))
+            $paramsToUpdate[] = "end = '".$this->linkDb->real_escape_string($movieSessionEnd)."'";
+
+        $sql = "UPDATE movie_sessions SET ". implode(',', $paramsToUpdate) ."WHERE id = ". $this->linkDb->real_escape_string($id);
         
         $result = $this->linkDb->query($sql);
 

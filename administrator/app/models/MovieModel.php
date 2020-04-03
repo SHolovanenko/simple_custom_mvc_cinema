@@ -124,19 +124,28 @@ class MovieModel extends Model {
         if (!empty($params['alias']))
             $params['alias'] = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $params['alias'])));
 
-        $sql = "UPDATE movies SET ".
-                "title = '".$this->linkDb->real_escape_string($params['title'])."',".
-                "alias = '".$this->linkDb->real_escape_string($params['alias'])."',".
-                "description_short = '".$this->linkDb->real_escape_string($params['descriptionShort'])."',".
-                "description_full = '".$this->linkDb->real_escape_string($params['descriptionFull'])."',".
-                "poster = '".$this->linkDb->real_escape_string($params['poster'])."',".
-                "duration_mins = '".$this->linkDb->real_escape_string($params['durationMins'])."' ".
-                "WHERE id = ". $this->linkDb->real_escape_string($id);
+        $paramsToUpdate = [];
+        if (!empty($params['title']))
+            $paramsToUpdate[] = "title = '".$this->linkDb->real_escape_string($params['title'])."'";
+            
+        if (!empty($params['alias']))
+            $paramsToUpdate[] = "alias = '".$this->linkDb->real_escape_string($params['alias'])."'";
+
+        if (!empty($params['descriptionShort']))
+            $paramsToUpdate[] = "description_short = '".$this->linkDb->real_escape_string($params['descriptionShort'])."'";
+            
+        if (!empty($params['descriptionFull']))
+            $paramsToUpdate[] = "description_full = '".$this->linkDb->real_escape_string($params['descriptionFull'])."'";
+            
+        if (!empty($params['poster']))
+            $paramsToUpdate[] = "poster = '".$this->linkDb->real_escape_string($params['poster'])."'";
+            
+        if (!empty($params['durationMins']))
+            $paramsToUpdate[] = "duration_mins = '".$this->linkDb->real_escape_string($params['durationMins'])."'";
+
+        $sql = "UPDATE movies SET ". implode(',', $paramsToUpdate) ." WHERE id = ". $this->linkDb->real_escape_string($id);
         
         $result = $this->linkDb->query($sql);
-
-        if ($result)
-            $result = $this->linkDb->insert_id;
 
         return $result;
     }
