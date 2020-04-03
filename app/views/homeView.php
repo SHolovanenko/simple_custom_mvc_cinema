@@ -61,7 +61,7 @@ foreach ($data['listMovies']['movies'] as $movie) {
         for ($i = 1; $i <= $data['listMovies']['totalPages']; $i++) {
         ?>
             <li class="page-item <?php if ($i == $data['currentPage']) echo 'active'; ?>">
-                <a class="page-link" href="/movies/index/<?php echo $i; ?>"><?php echo $i; ?></a>
+                <a class="page-link" href="/movie/index/<?php echo $i; ?>"><?php echo $i; ?></a>
             </li>
         <?php 
         }
