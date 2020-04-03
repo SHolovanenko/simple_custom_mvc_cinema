@@ -60,11 +60,11 @@ class MovieSessionModel extends Model {
         if ($totalMovieSessions->num_rows == 1)
             $result = $totalMovieSessions->fetch_assoc(); 
 
-        return $result;
+        return $result['totalMovieSessions'];
     } 
 
     public function getTotalPages() {
-        return ceil($this->getTotalMovieSessions() / self::ITEMS_PER_PAGE);
+        return ceil(intval($this->getTotalMovieSessions()) / self::ITEMS_PER_PAGE);
     }
 
     public function add($params) {
