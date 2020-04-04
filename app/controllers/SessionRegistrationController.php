@@ -23,8 +23,8 @@ class SessionRegistrationController extends Controller {
             $description = 'Cinema registration page';
 
             $fields = [
-                'email' => ['defaultValue' => null, 'required' => true],
-                'phone' => ['defaultValue' => null, 'required' => true],
+                'email' => ['defaultValue' => null, 'required' => true, 'validate' => 'email'],
+                'phone' => ['defaultValue' => null, 'required' => true, 'validate' => 'phone'],
                 'movieSessionId' => ['defaultValue' => null, 'required' => true],
                 'place' => ['defaultValue' => null, 'required' => true],
             ];

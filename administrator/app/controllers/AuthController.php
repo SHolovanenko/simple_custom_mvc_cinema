@@ -20,7 +20,7 @@ class AuthController extends Controller {
 
     public function authAction() {
         $fields = [
-            'email' => ['defaultValue' => null, 'required' => true],
+            'email' => ['defaultValue' => null, 'required' => true, 'validate' => 'email'],
             'password' => ['defaultValue' => null, 'required' => true],
         ];
         

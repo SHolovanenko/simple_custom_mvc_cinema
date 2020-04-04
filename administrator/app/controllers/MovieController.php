@@ -55,10 +55,10 @@ class MovieController extends Controller {
                 throw new Exception('Action restricted');
 
             $fields = [
-                'title' => ['defaultValue' => null, 'required' => true],
+                'title' => ['defaultValue' => null, 'required' => true, 'validate' => 'text'],
                 'alias' => ['defaultValue' => null, 'required' => false],
                 'descriptionShort' => ['defaultValue' => null, 'required' => false],
-                'descriptionFull' => ['defaultValue' => null, 'required' => true],
+                'descriptionFull' => ['defaultValue' => null, 'required' => true, 'validate' => 'text'],
                 'poster' => ['defaultValue' => null, 'required' => true],
                 'durationMins' => ['defaultValue' => null, 'required' => true],
             ];
@@ -103,10 +103,10 @@ class MovieController extends Controller {
                 throw new Exception('Action restricted');
 
             $fields = [
-                'title' => ['defaultValue' => null, 'required' => false],
+                'title' => ['defaultValue' => null, 'required' => false, 'validate' => 'text'],
                 'alias' => ['defaultValue' => null, 'required' => false],
                 'descriptionShort' => ['defaultValue' => null, 'required' => false],
-                'descriptionFull' => ['defaultValue' => null, 'required' => false],
+                'descriptionFull' => ['defaultValue' => null, 'required' => false, 'validate' => 'text'],
                 'poster' => ['defaultValue' => null, 'required' => false],
                 'durationMins' => ['defaultValue' => null, 'required' => false],
             ];

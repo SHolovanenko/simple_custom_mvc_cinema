@@ -41,9 +41,18 @@ class Controller {
                     break;
             }
 
-            if ($options['required'])
+            if ($options['required']) {
                 if (empty($this->requestParams[$name]))
                     $exceptions[] = ucfirst($name ." is required");
+
+                if (isset($options['validate'])) {
+                    try {
+                        $this->validate($this->requestParams[$name], $options['validate']);
+                    } catch (Exception $e) {
+                        $exceptions[] = $e->getMessage();
+                    }
+                }
+            }
         }
 
         if (!empty($exceptions)) 
@@ -77,5 +86,31 @@ class Controller {
 
         return false;
     }
+
+    public function validate($data, $method) {
+        $method = __CLASS__.'::validate'. ucfirst($method);
+        if (is_callable($method)) 
+            call_user_func_array($method, [$data]);
+    }
+
+    public function validateEmail($data) {
+        if (!filter_var($data, FILTER_VALIDATE_EMAIL))
+            throw new Exception('Invalid email');
+    }
     
+    public function validatePhone($data) {
+        if (strlen($data) > 14)
+            throw new Exception('Invalid phone number. Too long.');
+
+        if (strlen($data) < 10)
+            throw new Exception('Invalid phone number. Too short.');
+
+        if (!filter_var($data,FILTER_SANITIZE_NUMBER_INT))
+            throw new Exception('Invalid phone number');
+    }
+
+    public function validateText($data) {
+        if (strlen($data) < 2)
+            throw new Exception('Invalid text. Too short.');
+    }
 }
