@@ -21,8 +21,13 @@ class Controller {
             switch ($method) {
                 case 'PUT':
                 case 'POST':
-                    if (array_key_exists($name, $_POST) && !empty($_POST[$name]))
+                    if (array_key_exists($name, $_POST) && !empty($_POST[$name])) {
                         $this->requestParams[$name] = htmlspecialchars($_POST[$name]);
+                    } else {
+                        $data = $this->getRawPost($name);
+                        if (!empty($data))
+                            $this->requestParams[$name] = $data;
+                    }
 
                     break;
                 case 'GET':
@@ -39,6 +44,15 @@ class Controller {
                 if (empty($this->requestParams[$name]))
                     throw new Exception($name ." is required");
         }
+    }
+
+    private function getRawPost($name) {
+        $data = file_get_contents("php://input");
+        $data = json_decode($data);
+        if (isset($data->$name))
+            return $data->$name;
+
+        return null;
     }
 
     public function request($name, $defaultValue = null) {
